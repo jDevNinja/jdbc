@@ -16,6 +16,7 @@ public class Main {
     String password = "pass";
 
     Connection connection = DriverManager.getConnection(url, username, password);
+    connection.setAutoCommit(false);
 
     // SQL statements without parameters are normally executed using Statement objects.
     Statement statement = connection.createStatement();
@@ -76,6 +77,8 @@ public class Main {
     updateCount = statement.getUpdateCount();
     System.out.println("Результат выполнения: " + result);
     System.out.println("Количество обновленных записей: " + updateCount + "\n");
+
+    connection.commit();
   }
 }
 
