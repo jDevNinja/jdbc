@@ -21,17 +21,24 @@ public class Main {
     Statement statement = connection.createStatement();
 
     System.out.println("==statement.Insert==");
+    // Добавим возвращение сгенерированного ключа
     boolean result =
-        statement.execute("INSERT INTO account (balance, full_name) VALUES (25, 'John Black');");
+        statement.execute(
+            "INSERT INTO account (balance, full_name) VALUES (25, 'John Black');",
+            Statement.RETURN_GENERATED_KEYS);
+    ResultSet generatedKeys = statement.getGeneratedKeys();
+    while (generatedKeys.next()) {
+      System.out.println("Сгенерированный ключ: " + generatedKeys.getInt(1));
+    }
     int updateCount = statement.getUpdateCount();
     System.out.println("Результат выполнения: " + result);
-    System.out.println("Количество обновленных записей: " + updateCount);
+    System.out.println("Количество обновленных записей: " + updateCount + "\n");
 
     System.out.println("==statement.Select==");
     result = statement.execute("SELECT * FROM account");
     updateCount = statement.getUpdateCount();
     System.out.println("Результат выполнения: " + result);
-    System.out.println("Количество обновленных записей: " + updateCount);
+    System.out.println("Количество обновленных записей: " + updateCount + "\n");
 
     // result == true => есть ResultSet, обработаем его
     ArrayList<Account> accounts = new ArrayList<>();
@@ -54,7 +61,7 @@ public class Main {
     result = statement.execute(sql);
     updateCount = statement.getUpdateCount();
     System.out.println("Результат выполнения: " + result);
-    System.out.println("Количество обновленных записей: " + updateCount);
+    System.out.println("Количество обновленных записей: " + updateCount + "\n");
 
     // Чтобы не хардкодить запрос как в строках выше и сделать более очевидно и оптимизированно чем
     // в строке со String.format() воспользуемся PreparedStatement
@@ -68,7 +75,7 @@ public class Main {
     result = preparedStatement.execute();
     updateCount = statement.getUpdateCount();
     System.out.println("Результат выполнения: " + result);
-    System.out.println("Количество обновленных записей: " + updateCount);
+    System.out.println("Количество обновленных записей: " + updateCount + "\n");
   }
 }
 
