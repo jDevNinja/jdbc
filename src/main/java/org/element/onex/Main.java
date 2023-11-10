@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Random;
 
 public class Main {
   public static void main(String[] args) throws SQLException {
@@ -23,6 +24,13 @@ public class Main {
     System.out.println("Количество обновленных записей: " + updateCount);
 
     result = statement.execute("SELECT * FROM account");
+    updateCount = statement.getUpdateCount();
+    System.out.println("Результат выполнения: " + result);
+    System.out.println("Количество обновленных записей: " + updateCount);
+
+    int randomBalance = new Random().nextInt(1000);
+    String sql = String.format("UPDATE account SET balance = %d WHERE id = 1;", randomBalance);
+    result = statement.execute(sql);
     updateCount = statement.getUpdateCount();
     System.out.println("Результат выполнения: " + result);
     System.out.println("Количество обновленных записей: " + updateCount);
