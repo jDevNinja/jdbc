@@ -2,7 +2,6 @@ package org.element.onex;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -27,5 +26,30 @@ public class Main {
     updateCount = statement.getUpdateCount();
     System.out.println("Результат выполнения: " + result);
     System.out.println("Количество обновленных записей: " + updateCount);
+  }
+}
+
+class Account {
+  private int id;
+  private String fullName;
+  private int balance;
+
+  public Account(int id, String fullName, int balance) {
+    this.id = id;
+    this.fullName = fullName;
+    this.balance = balance;
+  }
+
+  @Override
+  public String toString() {
+    return "Account{"
+        + "id="
+        + id
+        + ", fullName='"
+        + fullName
+        + '\''
+        + ", balance="
+        + balance
+        + '}';
   }
 }
